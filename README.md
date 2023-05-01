@@ -14,6 +14,18 @@ Things to be noted
 - Make sure data validation works properly and returning a proper error message
 - Design the table structure as best as you could think of
 
+SuperAdmin Account
+mail:superadmin@example.com
+pass:superadmin
+
+Admin Account
+mail:admin@example.com
+pass:admin
+
+Merchant Account
+mail:merchant@example.com
+pass:merchant
+
 URL LIST  
 home  
 http://localhost  
@@ -34,7 +46,7 @@ http://localhost/items
 access item  
 http://localhost/items/(UUID)  
 create item  
-http://localhost/items/create  
+http://localhost/items/register
 update item  
 http://localhost/items/(UUID)/update  
 delete item  
