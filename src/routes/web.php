@@ -44,4 +44,5 @@ Route::prefix('admins')->name('admin.')->group(function () {
     Route::post('{UUID}/delete', [App\Http\Controllers\AdminController::class, 'delete']);
 });
 
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 require __DIR__.'/auth.php';

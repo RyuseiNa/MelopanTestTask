@@ -14,8 +14,8 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
-        'passwords' => 'users',
+        'guard' => 'merchant',
+        'passwords' => 'merchants',
     ],
 
     /*
@@ -36,9 +36,17 @@ return [
     */
 
     'guards' => [
-        'web' => [
+        'merchant' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'merchants',
+        ],
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
+        'superadmin' => [
+            'driver' => 'session',
+            'provider' => 'superadmins',
         ],
     ],
 
@@ -60,9 +68,17 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'merchants' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => App\Models\Merchant::class,
+        ],
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class,
+        ],
+        'superadmins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\SuperAdmin::class,
         ],
 
         // 'users' => [
@@ -91,9 +107,21 @@ return [
     */
 
     'passwords' => [
-        'users' => [
-            'provider' => 'users',
-            'table' => 'password_reset_tokens',
+        'merchants' => [
+            'provider' => 'merchants',
+            'table' => 'merchant_password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'admins' => [
+            'provider' => 'admins',
+            'table' => 'admin_password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'superadmins' => [
+            'provider' => 'superadmins',
+            'table' => 'superadmin_password_resets',
             'expire' => 60,
             'throttle' => 60,
         ],
