@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use App\Models\Admin;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
@@ -44,13 +45,11 @@ class LoginController extends Controller
             'password' => 'required|min:8'
         ]);
 
-        if (method_exists($this, 'hasTooManyLoginAttempts') &&
-            $this->hasTooManyLoginAttempts($request)) {
+        if (method_exists($this, 'hasTooManyLoginAttempts') &&$this->hasTooManyLoginAttempts($request)) {
             $this->fireLockoutEvent($request);
 
             return $this->sendLockoutResponse($request);
         }
-
         if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password])) {
             return redirect(route('dashboard'));
         }
@@ -132,12 +131,11 @@ class LoginController extends Controller
         }else if(Auth::guard('merchant')->check()){
             $toRedirect="merchant";
         }
-        Auth::logout();
+        Auth::guard($toRedirect)->logout();
 
         $request->session()->invalidate();
 
-        $request->session()->regenerateToken();
-
-        return redirect('/'.$toRedirect.'/login');
+        // $request->session()->regenerateToken();
+        return redirect(route($toRedirect.'login'));
     }
 }
