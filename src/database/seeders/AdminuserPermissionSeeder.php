@@ -14,16 +14,16 @@ class AdminuserPermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('adminuser_permission')->insert([
-            'admin_id' => '2',
+        DB::table('admin_permission')->insert([
+            'admin_id' => '1',
             'permission_id'=>'1',
         ]);
-        DB::table('adminuser_permission')->insert([
-            'admin_id' => '2',
+        DB::table('admin_permission')->insert([
+            'admin_id' => '1',
             'permission_id'=>'2',
         ]);
-        DB::table('adminuser_permission')->insert([
-            'admin_id' => '2',
+        DB::table('admin_permission')->insert([
+            'admin_id' => '1',
             'permission_id'=>'3',
         ]);
     }

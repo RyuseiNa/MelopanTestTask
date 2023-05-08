@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 
 use App\Models\Permission;
 
-class PermissionSeeder extends Seeder
+class PermissionsSeeder extends Seeder
 {
     /**
      * Run the database seeds.

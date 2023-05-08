@@ -6,7 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Item;
 
-class ItemSeeder extends Seeder
+class ItemsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,7 +15,7 @@ class ItemSeeder extends Seeder
     {
         $items = [
             [
-                'user_id' => '2',
+                'admin_id' => '1',
                 'uuid' => 'uuid1',
                 'name' => 'Melonpan',
                 'SKU' => '123456789',
@@ -26,7 +26,7 @@ class ItemSeeder extends Seeder
                 'updated_at' =>'2023-05-01 12:00:00'
             ],
             [
-                'user_id' => '3',
+                'admin_id' => '1',
                 'uuid' => 'uuid2',
                 'name' => 'Ramen',
                 'SKU' => '987654321',
@@ -37,7 +37,7 @@ class ItemSeeder extends Seeder
                 'updated_at' =>'2023-05-01 12:00:00'
             ],
             [
-                'user_id' => '3',
+                'admin_id' => '1',
                 'uuid' => 'uuid3',
                 'name' => 'Sushi',
                 'SKU' => '192837465',
@@ -51,7 +51,7 @@ class ItemSeeder extends Seeder
         ];
         foreach ($items as $item) {
             $merchandise = new Item();
-            $merchandise->user_id = $item['user_id'];
+            $merchandise->admin_id = $item['admin_id'];
             $merchandise->uuid = $item['uuid'];
             $merchandise->name = $item['name'];
             $merchandise->SKU = $item['SKU'];
