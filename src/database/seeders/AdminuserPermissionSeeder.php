@@ -26,5 +26,9 @@ class AdminuserPermissionSeeder extends Seeder
             'admin_id' => '1',
             'permission_id'=>'3',
         ]);
+        DB::table('admin_permission')->insert([
+            'admin_id' => '1',
+            'permission_id'=>'4',
+        ]);
     }
 }

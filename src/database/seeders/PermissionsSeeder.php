@@ -19,6 +19,9 @@ class PermissionsSeeder extends Seeder
                 'name' => 'create'
             ],
             [
+                'name' => 'read'
+            ],
+            [
                 'name' => 'update'
             ],
             [

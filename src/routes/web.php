@@ -22,23 +22,30 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware('auth:admin,superadmin,merchant')->name('dashboard');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+// Route::middleware('auth')->group(function () {
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// });
 Route::post('logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+
+Route::prefix('register')->name('register.')->group(function () {
+    Route::get('/item', [App\Http\Controllers\ItemController::class, 'showRegister'])->name('item');
+    Route::post('/item', [App\Http\Controllers\ItemController::class, 'store']);
+});
+
 Route::prefix('items')->name('item.')->group(function () {
-    Route::get('/', [App\Http\Controllers\ItemController::class, 'list'])->name('list');
-    Route::get('register', [App\Http\Controllers\ItemController::class, 'showRegister'])->name('register');
-    Route::post('register', [App\Http\Controllers\ItemController::class, 'register']);
-    Route::get('{UUID}/update', [App\Http\Controllers\ItemController::class, 'showUpdate'])->name('update');
-    Route::post('{UUID}/update', [App\Http\Controllers\ItemController::class, 'update']);
-    Route::get('{UUID}/delete', [App\Http\Controllers\ItemController::class, 'showDelete'])->name('delete');
-    Route::post('{UUID}/delete', [App\Http\Controllers\ItemController::class, 'delete']);
+    Route::get('/', [App\Http\Controllers\ItemController::class, 'index'])->name('list');
+    Route::get('/{UUID}', [App\Http\Controllers\ItemController::class, 'show'])->name('detail');
+    // Route::get('/register', [App\Http\Controllers\ItemController::class, 'showRegister'])->name('register');
+    // Route::post('/register', [App\Http\Controllers\ItemController::class, 'store']);
+    Route::get('/{UUID}/update', [App\Http\Controllers\ItemController::class, 'showUpdate'])->name('update');
+    Route::post('/{UUID}/update', [App\Http\Controllers\ItemController::class, 'update']);
+    Route::get('/{UUID}/delete', [App\Http\Controllers\ItemController::class, 'showDelete'])->name('delete');
+    Route::post('/{UUID}/delete', [App\Http\Controllers\ItemController::class, 'delete']);
 });
 Route::prefix('admins')->name('admin.')->group(function () {
-    Route::get('/', [App\Http\Controllers\AdminController::class, 'list'])->name('list');
+    Route::get('/', [App\Http\Controllers\AdminController::class, 'index'])->name('list');
     Route::get('{UUID}/update', [App\Http\Controllers\AdminController::class, 'showUpdate'])->name('update');
     Route::post('{UUID}/update', [App\Http\Controllers\AdminController::class, 'update']);
     Route::get('{UUID}/delete', [App\Http\Controllers\AdminController::class, 'showDelete'])->name('delete');
