@@ -45,8 +45,4 @@ class Admin extends Authenticatable
     {
         return $this->belongsToMany(Permission::class);
     }
-    public function role()
-    {
-        return $this->belongsTo(Role::class);
-    }
 }
