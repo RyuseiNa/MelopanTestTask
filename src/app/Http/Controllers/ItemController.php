@@ -17,15 +17,27 @@ class ItemController extends Controller
 {
     public function index()
     {
+        if($this->checkPermission("read")){
+            $result = "Not permission.";
+            return view('result',compact('result'));
+        }
         $items = Item::all();
         // return $items->toArray();
         return view('item.list',compact('items'));
     }
     public function showRegister(){
+        if($this->checkPermission("create")){
+            $result = "Not permission.";
+            return view('result',compact('result'));
+        }
         return view('item.create');
     }
     public function store(Request $request)
     {
+        if($this->checkPermission("create")){
+            $result = "Not permission.";
+            return view('result',compact('result'));
+        }
         $result = "success";
         try {
         $id = Auth::guard("admin")->id();
@@ -50,17 +62,29 @@ class ItemController extends Controller
     }
     public function show(Request $request,$UUID)
     {
+        if($this->checkPermission("read")){
+            $result = "Not permission.";
+            return view('result',compact('result'));
+        }
         $item = Item::where('uuid', '=', $UUID)->first();
         // $item->toArray();
         $owner = Admin::find($item->admin_id)->name;
         return view('item.detail',compact('item','owner'));
     }
     public function showUpdate($UUID){
+        if($this->checkPermission("update")){
+            $result = "Not permission.";
+            return view('result',compact('result'));
+        }
         $item = Item::where('uuid', '=', $UUID)->first();
         return view('item.edit',compact('item'));
     }
     public function update(Request $request,$UUID)
     {
+        if($this->checkPermission("update")){
+            $result = "Not permission.";
+            return view('result',compact('result'));
+        }
         $result = "success";
         try{
             if(empty($request->file())){
@@ -87,6 +111,10 @@ class ItemController extends Controller
         return view('result',compact('result'));
     }
     public function showDelete($UUID){
+        if($this->checkPermission("delete")){
+            $result = "Not permission.";
+            return view('result',compact('result'));
+        }
         $item = Item::where('uuid', '=', $UUID)->first();
         $owner = Admin::find($item->admin_id)->name;
 
@@ -94,6 +122,10 @@ class ItemController extends Controller
     }
     public function delete(Request $request)
     {
+        if($this->checkPermission("delete")){
+            $result = "Not permission.";
+            return view('result',compact('result'));
+        }
         $result = "deleted";
         $item = Item::where("SKU","=","$request->SKU")->first();
         if(Auth::guard("admin")->id()==$item->admin_id){
@@ -102,5 +134,11 @@ class ItemController extends Controller
             $result =  "you are not item owner.";
         }
         return view('result',compact('result'));
+    }
+    private function checkPermission($permission){
+        $admin = Auth::guard("admin")->user();
+        $admin->permissions->firstwhere('name','=',$permission);
+        return is_null($admin->permissions->firstwhere('name','=',$permission));
+
     }
 }
