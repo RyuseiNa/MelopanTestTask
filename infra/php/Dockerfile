@@ -48,6 +48,19 @@ COPY ./infra/php/php.deploy.ini /usr/local/etc/php/php.ini
 COPY ./src /workspace
 
 RUN composer install -q -n --no-ansi --no-dev --no-scripts --no-progress --prefer-dist \
+  && php artisan key:generate \
+  && php artisan storage:link \
   && chmod -R 777 storage bootstrap/cache \
   && php artisan optimize:clear \
-  && php artisan optimize
+  && php artisan optimize \
+  && php artisan migrate --seed \
+  && make install \
+  && rm -rf /usr/local/bin/npm /usr/local/share/man/man1/node* ~/.npm \
+  && rm -rf /usr/local/lib/node* \
+  && rm -rf /usr/local/bin/node* \
+  && rm -rf /usr/local/include/node* \
+  && apt-get purge nodejs npm \
+  && apt autoremove \
+  && curl -fsSL https://deb.nodesource.com/setup_19.x | bash - &&\ \
+  && apt-get install -y nodejs \
+  && curl -qL https://www.npmjs.com/install.sh | sh\ 
