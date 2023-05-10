@@ -41,12 +41,4 @@ class Merchant extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    public function permissions()
-    {
-        return $this->belongsToMany(Permission::class);
-    }
-    public function role()
-    {
-        return $this->belongsTo(Role::class);
-    }
 }
