@@ -14,6 +14,7 @@
                     <img src="{{ asset("storage/item/".$item->imagepath) }}" alt={{$item->name}}width="400" height="300">
                     <p>SKU:{{$item->SKU}}　owner:{{$owner}}</p>
                     <div text-justify><p>{{$item->description}}</p></div>
+                    @if(Auth::guard('admin')->check())
                     @if(Auth::guard('admin')->user()->permissions->containsStrict('name','update')&&$item->admin_id==Auth::guard('admin')->id())
 
                                 <a href="{{route('item.update', $item->uuid)}}">
@@ -29,6 +30,7 @@
                                     <button class="btn btn-sm btn-info">Delete</button>
                                 </a>
 
+                    @endif
                     @endif
                 </div>
             </div>

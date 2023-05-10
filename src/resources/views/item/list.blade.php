@@ -14,7 +14,11 @@
                             <th>name</th>
                             <th>SKU</th>
                             <th>image</th>
+                            @if(Auth::guard("admin")->check())
                             <th colspan="3">action</th>
+                            @else
+                            <th></th>
+                            @endif
                           </tr>
                         </thead>
                         <tbody>
@@ -29,6 +33,7 @@
                                     <button class="btn btn-sm btn-info">Detail</button>
                                 </a>
                             </td>
+                            @if(Auth::guard('admin')->check())
                             @if(Auth::guard('admin')->user()->permissions->containsStrict('name','update')&&$item->admin_id==Auth::guard('admin')->id())
                             <td>
                                 <a href="{{route('item.update', $item->uuid)}}">
@@ -42,6 +47,7 @@
                                     <button class="btn btn-sm btn-info">Delete</button>
                                 </a>
                             </td>
+                            @endif
                             @endif
                           </tr>
                           @endforeach
