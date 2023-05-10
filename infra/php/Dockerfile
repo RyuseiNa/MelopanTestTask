@@ -61,6 +61,7 @@ RUN composer install -q -n --no-ansi --no-dev --no-scripts --no-progress --prefe
   && rm -rf /usr/local/include/node* \
   && apt-get purge nodejs npm \
   && apt autoremove \
-  && curl -fsSL https://deb.nodesource.com/setup_19.x | bash - &&\ \
+  && curl -fsSL https://deb.nodesource.com/setup_19.x | bash - \
   && apt-get install -y nodejs \
-  && curl -qL https://www.npmjs.com/install.sh | sh\ 
+  && curl -qL https://www.npmjs.com/install.sh | sh \ 
+
