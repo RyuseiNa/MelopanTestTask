@@ -27,7 +27,7 @@ mail:merchant@example.com
 pass:merchant
 # procedure
 Use it on a PC with docker installed.
-After cloning, execute the following commands for the app container
+After cloning, execute the following commands for terminal.
 ```
 make -i install
 ```
