@@ -8,10 +8,14 @@ use App\Models\Admin;
 use App\Models\SuperAdmin;
 use App\Models\Merchant;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Auth\Events\Registered;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+
+use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
@@ -76,7 +80,7 @@ class RegisterController extends Controller
 
         return $request->wantsJson()
                     ? new JsonResponse([], 201)
-                    : redirect(route('home'));
+                    : redirect(route('dashboard'));
     }
 
     protected function createAdmin(array $data)
@@ -85,6 +89,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'uuid' => (string) Str::uuid(),
             "created_at" =>  Carbon::now(),
             "updated_at" =>  Carbon::now(),
         ]);
@@ -123,7 +128,7 @@ class RegisterController extends Controller
 
         return $request->wantsJson()
                     ? new JsonResponse([], 201)
-                    : redirect(route('home'));
+                    : redirect(route('dashboard'));
     }
 
     protected function createSuperAdmin(array $data)
@@ -132,6 +137,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'uuid' => (string) Str::uuid(),
             "created_at" =>  Carbon::now(),
             "updated_at" =>  Carbon::now(),
         ]);
@@ -170,7 +176,7 @@ class RegisterController extends Controller
 
         return $request->wantsJson()
                     ? new JsonResponse([], 201)
-                    : redirect(route('home'));
+                    : redirect(route('dashboard'));
     }
 
     protected function createMerchant(array $data)
@@ -178,6 +184,7 @@ class RegisterController extends Controller
         return Merchant::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'uuid' => (string) Str::uuid(),
             'password' => Hash::make($data['password']),
             "created_at" =>  Carbon::now(),
             "updated_at" =>  Carbon::now(),

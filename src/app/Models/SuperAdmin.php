@@ -22,6 +22,7 @@ class SuperAdmin extends Authenticatable
         'name',
         'email',
         'password',
+        'uuid'
     ];
 
     /**

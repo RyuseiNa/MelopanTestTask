@@ -21,6 +21,7 @@ class Merchant extends Authenticatable
         'name',
         'email',
         'password',
+        'uuid'
     ];
 
     /**
