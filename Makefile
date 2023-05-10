@@ -6,6 +6,17 @@ install:
 	docker compose exec app php artisan key:generate
 	docker compose exec app php artisan storage:link
 	docker compose exec app chmod -R 777 storage bootstrap/cache
+	docker compose exec app apt update
+	docker compose exec app rm -rf /usr/local/bin/npm /usr/local/share/man/man1/node* ~/.npm
+	docker compose exec app rm -rf /usr/local/lib/node*
+	docker compose exec app rm -rf /usr/local/bin/node*
+	docker compose exec app rm -rf /usr/local/include/node*
+	docker compose exec app apt-get purge nodejs npm
+	docker compose exec app apt autoremove
+	docker compose exec app curl -fsSL https://deb.nodesource.com/setup_19.x | bash - 
+	docker compose exec app apt-get install -y nodejs
+	docker compose exec app curl -qL https://www.npmjs.com/install.sh | sh\
+	docker compose exec app npm install && npm run build
 	@make fresh
 up:
 	docker compose up -d
