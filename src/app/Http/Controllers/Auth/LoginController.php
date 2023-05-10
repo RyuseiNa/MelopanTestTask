@@ -125,7 +125,7 @@ class LoginController extends Controller
     {
         $toRedirect;
         if(Auth::guard('superadmin')->check()){
-            $toRedirect="superadamin";
+            $toRedirect="superadmin";
         }else if(Auth::guard('admin')->check()){
             $toRedirect="admin";
         }else if(Auth::guard('merchant')->check()){
@@ -136,6 +136,6 @@ class LoginController extends Controller
         $request->session()->invalidate();
 
         // $request->session()->regenerateToken();
-        return redirect(route($toRedirect.'login'));
+        return redirect(route($toRedirect.'.login'));
     }
 }
