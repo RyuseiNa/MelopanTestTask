@@ -9,23 +9,23 @@
 
 1-5 An ACL (access control) feature for admin user
 
-Things to be noted
+# Things to be noted
 - Never expose mysql auto incremented id publicly via URL when accessing an item
 - Make sure data validation works properly and returning a proper error message
 - Design the table structure as best as you could think of
-
-SuperAdmin Account
+# User List
+- SuperAdmin Account
 mail:superadmin@example.com
 pass:superadmin
 
-Admin Account
+- Admin Account
 mail:admin@example.com
 pass:admin
 
-Merchant Account
+- Merchant Account
 mail:merchant@example.com
 pass:merchant
-
+# procedure
 After cloning, execute the following commands for the app container
 ```
 make -i install
